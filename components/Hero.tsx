@@ -107,7 +107,7 @@ export default function Hero() {
       {/* Right: Globe — clear of text */}
       <div className={styles.globeWrap} aria-hidden="true">
         <div className={styles.globeGlow} />
-        <PixelGlobe size={520} />
+        <PixelGlobe size={550} />
       </div>
 
       {/* Scroll hint */}

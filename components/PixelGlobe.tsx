@@ -93,10 +93,11 @@ export default function PixelGlobe({ size = 300 }: { size?: number }) {
     const LL = Math.sqrt(LX * LX + LY * LY + LZ * LZ);
 
     function draw() {
+      const c = ctx as CanvasRenderingContext2D;
       const dark = themeRef.current === 'dark';
 
       // Clear canvas each frame so old colours don't bleed through
-      ctx!.clearRect(0, 0, S, S);
+      c.clearRect(0, 0, S, S);
 
       for (let py = Math.floor(cy - R) - CELL; py <= cy + R; py += CELL) {
         for (let px = Math.floor(cx - R) - CELL; px <= cx + R; px += CELL) {
@@ -121,7 +122,7 @@ export default function PixelGlobe({ size = 300 }: { size?: number }) {
           const edgeDist = R - Math.sqrt(d2);
           const alpha = Math.min(1, edgeDist / (CELL * 1.8));
 
-          ctx.globalAlpha = alpha;
+          c.globalAlpha = alpha;
 
           if (isLandCell) {
             if (dark) {
@@ -130,15 +131,15 @@ export default function PixelGlobe({ size = 300 }: { size?: number }) {
               const r = Math.round(18  + (74  - 18)  * t);   // very dark → muted blue
               const g = Math.round(36  + (140 - 36)  * t);
               const b = Math.round(58  + (176 - 58)  * t);
-              ctx.fillStyle = `rgb(${r},${g},${b})`;
-              ctx.fillRect(px, py, CELL - GAP, CELL - GAP);
+              c.fillStyle = `rgb(${r},${g},${b})`;
+              c.fillRect(px, py, CELL - GAP, CELL - GAP);
               // Top highlight strip — slightly lighter steel
               const ht = Math.min(1, t + 0.22);
               const hr = Math.round(18  + (74  - 18)  * ht);
               const hg = Math.round(36  + (140 - 36)  * ht);
               const hb = Math.round(58  + (200 - 58)  * ht);
-              ctx.fillStyle = `rgb(${hr},${hg},${hb})`;
-              ctx.fillRect(px, py, CELL - GAP, Math.max(1, Math.floor((CELL - GAP) * 0.28)));
+              c.fillStyle = `rgb(${hr},${hg},${hb})`;
+              c.fillRect(px, py, CELL - GAP, Math.max(1, Math.floor((CELL - GAP) * 0.28)));
 
             } else {
               // ── LIGHT: deep blue → white ────────────────────────────────
@@ -146,29 +147,29 @@ export default function PixelGlobe({ size = 300 }: { size?: number }) {
               const r = Math.round(0   + (255 - 0)   * t);
               const g = Math.round(40  + (255 - 40)  * t);
               const b = Math.round(160 + (255 - 160) * t);
-              ctx.fillStyle = `rgb(${r},${g},${b})`;
-              ctx.fillRect(px, py, CELL - GAP, CELL - GAP);
+              c.fillStyle = `rgb(${r},${g},${b})`;
+              c.fillRect(px, py, CELL - GAP, CELL - GAP);
               // Top strip — slightly brighter
               const ht = Math.min(1, t + 0.25);
               const hr = Math.round(0   + (255 - 0)   * ht);
               const hg = Math.round(40  + (255 - 40)  * ht);
               const hb = Math.round(160 + (255 - 160) * ht);
-              ctx.fillStyle = `rgb(${hr},${hg},${hb})`;
-              ctx.fillRect(px, py, CELL - GAP, Math.max(1, Math.floor((CELL - GAP) * 0.28)));
+              c.fillStyle = `rgb(${hr},${hg},${hb})`;
+              c.fillRect(px, py, CELL - GAP, Math.max(1, Math.floor((CELL - GAP) * 0.28)));
             }
 
           } else {
             if (dark) {
-              ctx.globalAlpha = alpha * (0.06 + 0.09 * diffuse);
-              ctx.fillStyle = `rgb(8,20,42)`;  // very dark navy ocean
+              c.globalAlpha = alpha * (0.06 + 0.09 * diffuse);
+              c.fillStyle = `rgb(8,20,42)`;  // very dark navy ocean
             } else {
-              ctx.globalAlpha = alpha * (0.07 + 0.10 * diffuse);
-              ctx.fillStyle = `rgb(0,100,220)`;
+              c.globalAlpha = alpha * (0.07 + 0.10 * diffuse);
+              c.fillStyle = `rgb(0,100,220)`;
             }
-            ctx.fillRect(px, py, CELL - GAP, CELL - GAP);
+            c.fillRect(px, py, CELL - GAP, CELL - GAP);
           }
 
-          ctx.globalAlpha = 1;
+          c.globalAlpha = 1;
         }
       }
 
