@@ -1,0 +1,239 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 80px 6% 80px;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* ── Left: Text content ── */
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  max-width: 560px;
+  flex-shrink: 0;
+}
+
+/* Availability badge */
+.greeting {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--badge-color);
+  width: fit-content;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--badge-color);
+  flex-shrink: 0;
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+/* Name */
+.name {
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--clr-text);
+  /* Subtle warm glow behind name */
+  text-shadow: none;
+}
+
+/* Typewriter */
+.roleWrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  min-height: 2rem;
+  flex-wrap: wrap;
+}
+
+.rolePrefix {
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  color: var(--clr-secondary);
+  font-weight: 400;
+}
+
+.role {
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  font-weight: 700;
+  color: var(--role-color);
+  letter-spacing: -0.01em;
+}
+
+.cursor {
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  color: var(--clr-muted);
+  font-weight: 300;
+  animation: typewriter-cursor 0.9s ease-in-out infinite;
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: 0.82rem;
+  color: var(--clr-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+/* Contact pills — solid, no glass */
+.contactBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.contactPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  color: var(--clr-secondary);
+  text-decoration: none;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border-hi);
+  border-radius: 6px;
+  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.contactPill:hover {
+  color: var(--neon-green);
+  border-color: var(--neon-green);
+  box-shadow: 0 0 12px var(--glow-green), inset 0 0 8px rgba(0,0,0,0.08);
+}
+
+/* CTA Buttons */
+.ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: #ffffff;
+  background: var(--accent-1);
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+  box-shadow: 0 0 16px var(--glow-green);
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px) perspective(400px) rotateX(3deg);
+  box-shadow: 0 0 28px var(--accent-1), 0 8px 24px var(--glow-green);
+  background: var(--accent-2);
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.6rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--clr-text);
+  background: transparent;
+  border: 1px solid var(--clr-border-hi);
+  transition: border-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.btnSecondary:hover {
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+  box-shadow: 0 0 16px var(--glow-cyan);
+  transform: translateY(-2px);
+}
+
+/* ── Right: Globe ── */
+.globeWrap {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Radial glow behind globe */
+.globeGlow {
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-green) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(20px);
+}
+
+/* Scroll hint */
+.scrollHint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--clr-muted);
+  z-index: 3;
+}
+
+.scrollArrow {
+  animation: bounce-y 1.5s ease-in-out infinite;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 100px 1.5rem 80px;
+    gap: 3rem;
+  }
+  .globeWrap {
+    align-self: center;
+    opacity: 0.75;
+  }
+}
+
+@media (max-width: 600px) {
+  .contactPill span { display: none; }
+  .globeWrap { display: none; }
+}

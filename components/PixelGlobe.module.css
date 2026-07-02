@@ -1,0 +1,7 @@
+.globe {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  /* subtle glow to tie it into the page */
+  filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.06));
+}

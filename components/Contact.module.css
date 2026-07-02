@@ -1,0 +1,110 @@
+.hero {
+  text-align: center;
+  padding: 1.5rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cta {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--clr-text);
+}
+
+.cta span {
+  color: var(--neon-green);
+  text-shadow: 0 0 20px var(--glow-green);
+}
+
+.sub {
+  font-size: 0.88rem;
+  color: var(--clr-secondary);
+  max-width: 440px;
+  line-height: 1.7;
+  font-family: var(--font-mono);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.4rem;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--clr-text);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+
+.card:hover {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 20px var(--glow-green), 0 16px 32px rgba(0,0,0,0.5);
+  transform: perspective(600px) rotateX(4deg) translateY(-4px);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: var(--clr-surface-2);
+  border: 1px solid var(--glow-green);
+  color: var(--neon-green);
+  flex-shrink: 0;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.card:hover .icon {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 10px var(--glow-green);
+}
+
+.cardBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clr-muted);
+  margin-bottom: 0.2rem;
+}
+
+.value {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--clr-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.arrow {
+  color: var(--clr-muted);
+  flex-shrink: 0;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.card:hover .arrow {
+  color: var(--neon-green);
+  transform: translateX(2px) translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+}

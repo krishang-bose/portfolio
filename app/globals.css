@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ═══════════════════════════════════════════════════════════════
+   Both themes are STRUCTURAL MIRRORS.
+   Every variable exists in both. Only the VALUES differ.
+   :root        → LIGHT (default, no flash on load)
+   [data-theme='dark'] → DARK
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── LIGHT theme ────────────────────────────────────────────── */
+:root {
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* Background gradient (mirrors dark exactly, light palette) */
+  --bg-start:  #d0dcff;   /* light indigo at the bottom */
+  --bg-end:    #ffffff;   /* pure white at the top */
+
+  /* Surfaces */
+  --clr-bg:        #ffffff;
+  --clr-surface:   #f3f5ff;   /* soft blue-lavender */
+  --clr-surface-2: #e8ecff;   /* light indigo wash */
+  --clr-border:    #c4cbe8;
+  --clr-border-hi: #95a0d4;
+
+  /* Text */
+  --clr-text:      #0d1133;   /* near-black, blue tone */
+  --clr-secondary: #3a4499;   /* dark indigo */
+  --clr-muted:     #7880aa;   /* slate-purple */
+
+  /* Accents: blue-indigo → purple → cyan */
+  --accent-1:   #3355ee;
+  --accent-2:   #7755cc;
+  --accent-3:   #00b4d8;
+  --accent-4:   #2233bb;
+  --accent-5:   #aa77dd;
+
+  --neon-green:   var(--accent-1);
+  --neon-cyan:    var(--accent-3);
+  --neon-magenta: var(--accent-2);
+
+  --glow-green:   rgba( 51,  85, 238, 0.22);
+  --glow-cyan:    rgba(  0, 180, 216, 0.20);
+  --glow-magenta: rgba(119,  85, 204, 0.18);
+
+  --grad-neon:      linear-gradient(135deg, #3355ee, #7755cc);
+  --grad-neon-text: linear-gradient(135deg, #3355ee, #aa77dd);
+  --grad-hot:       linear-gradient(135deg, #00b4d8, #7755cc);
+
+  --grid-line: rgba(51, 85, 238, 0.08);
+
+  /* Hero-specific — large prominent elements use these instead of neon-green */
+  --badge-color: var(--accent-1);   /* badge text + dot */
+  --role-color:  var(--accent-1);   /* typewriter role text */
+}
+
+/* ── DARK theme ─────────────────────────────────────────────── */
+[data-theme='dark'] {
+  /* Background gradient */
+  --bg-start:  #1b2735;   /* deep navy at the bottom */
+  --bg-end:    #090a0f;   /* near-black at the top */
+
+  /* Surfaces */
+  --clr-bg:        #090a0f;
+  --clr-surface:   #0d1520;
+  --clr-surface-2: #111e2e;
+  --clr-border:    #1a2840;
+  --clr-border-hi: #243654;
+
+  /* Text */
+  --clr-text:      #e8eaf0;
+  --clr-secondary: #c8d0e0;
+  --clr-muted:     #4a5a72;
+
+  /* Accents: indigo-blue — pops against navy, matches deep-space aesthetic */
+  --accent-1:   #5577cc;      /* indigo-blue, primary */
+  --accent-2:   #4466bb;      /* deeper indigo */
+  --accent-3:   #6688dd;      /* lighter indigo */
+  --accent-4:   #3355aa;      /* deep navy-indigo */
+  --accent-5:   #7799ee;      /* soft sky-blue */
+
+  --neon-green:   var(--accent-1);
+  --neon-cyan:    var(--accent-2);
+  --neon-magenta: var(--accent-3);
+
+  --glow-green:   rgba( 85, 119, 204, 0.25);
+  --glow-cyan:    rgba( 68, 102, 187, 0.22);
+  --glow-magenta: rgba(102, 136, 221, 0.20);
+
+  --grad-neon:      linear-gradient(135deg, #5577cc, #3355aa);
+  --grad-neon-text: linear-gradient(135deg, #5577cc, #7799ee);
+  --grad-hot:       linear-gradient(135deg, #6688dd, #5577cc);
+
+  --grid-line: rgba(85, 119, 204, 0.12);
+
+  /* Hero-specific — keep large hero text as palette-matching blue-grey, not accent */
+  --badge-color: var(--clr-secondary);  /* #c8d0e0 blue-grey */
+  --role-color:  var(--clr-text);       /* #e8eaf0 off-white */
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── Unified body — IDENTICAL rule for both themes ────────────
+   Only the CSS variable VALUES differ between light and dark.  */
+body {
+  background-color: var(--bg-end);
+  background-image: radial-gradient(ellipse at bottom, var(--bg-start) 0%, var(--bg-end) 100%);
+  background-attachment: fixed;
+  color: var(--clr-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  cursor: none;
+}
+
+a, button, [role="button"] { cursor: none; }
+
+/* ── View Transitions (animated theme toggle circular wipe) ── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  z-index: 999;
+}
+
+body > * { position: relative; z-index: 1; }
+
+/* ── Scroll Progress ── */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px;
+  background: var(--grad-neon);
+  z-index: 1000;
+  box-shadow: 0 0 8px var(--accent-1);
+}
+
+/* ── Footer ── */
+.footer {
+  padding: 3rem 2rem; text-align: center;
+  border-top: 1px solid var(--clr-border);
+  margin-top: 4rem;
+}
+.footer p {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: var(--clr-muted); letter-spacing: 0.2em;
+}
+
+/* ══════════════ Keyframes ══════════════ */
+@keyframes shimmer {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(200%)  skewX(-15deg); }
+}
+@keyframes bounce-y {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes typewriter-cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+@keyframes neon-pulse {
+  0%, 100% { text-shadow: 0 0 5px var(--accent-1), 0 0 14px var(--glow-green); }
+  50%       { text-shadow: 0 0 10px var(--accent-1), 0 0 28px var(--glow-green),
+                           0 0 44px var(--glow-cyan); }
+}
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 3px var(--accent-1); opacity: 0.85; }
+  50%       { box-shadow: 0 0 8px var(--accent-1), 0 0 18px var(--glow-green); opacity: 1; }
+}
+
+/* Perspective retro grid */
+.retro-grid {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 45%;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 50px 50px;
+  transform: perspective(350px) rotateX(65deg);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 80%);
+  pointer-events: none; z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pixel Reveal Background</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+    }
+
+    canvas {
+      display: block;
+      cursor: default;
+    }
+
+    .content {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .content h1 {
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      font-size: clamp(1.2rem, 4vw, 2.5rem);
+      text-transform: uppercase;
+      mix-blend-mode: difference;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="pixelCanvas"></canvas>
+
+  <div class="content">
+    <h1>Krishang Bose</h1>
+  </div>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('pixelCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // ---- CONFIG ----
+      const CELL_SIZE = 12;          // pixel block size
+      const GAP = 3;                // gap between blocks
+      const RADIUS = 130;           // mouse influence radius in px
+      const MAX_LIFT = 60;          // vertical levitation in px
+      const MAX_SCALE = 0.4;        // extra scale at peak
+      const EASE_UP = 0.5;         // rise speed
+      const EASE_DOWN = 0.05;       // settle/fade speed
+
+      let width, height, cols, rows;
+      let cellSizeFull = CELL_SIZE; // cached
+      let activeCells = new Map();  // key: index, value: {x,y,lift,target}
+      let cellIndexCache = [];      // precomputed positions
+      let mouse = { x: -9999, y: -9999 };
+
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+
+        cols = Math.ceil(width / CELL_SIZE) + 1;
+        rows = Math.ceil(height / CELL_SIZE) + 1;
+
+        cellIndexCache = new Array(cols * rows);
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            cellIndexCache[r * cols + c] = { x: c * CELL_SIZE, y: r * CELL_SIZE };
+          }
+        }
+        activeCells.clear();
+      }
+
+      window.addEventListener('resize', resize);
+      window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      });
+      window.addEventListener('mouseleave', () => {
+        mouse.x = -9999;
+        mouse.y = -9999;
+      });
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+          mouse.x = e.touches[0].clientX;
+          mouse.y = e.touches[0].clientY;
+        }
+      }, { passive: true });
+      window.addEventListener('touchend', () => {
+        mouse.x = -9999;
+        mouse.y = -9999;
+      });
+
+      function update() {
+        // Only scan cells within the bounding box around the cursor (perf: avoid full-grid scan)
+        const minCol = Math.max(0, Math.floor((mouse.x - RADIUS) / CELL_SIZE));
+        const maxCol = Math.min(cols - 1, Math.ceil((mouse.x + RADIUS) / CELL_SIZE));
+        const minRow = Math.max(0, Math.floor((mouse.y - RADIUS) / CELL_SIZE));
+        const maxRow = Math.min(rows - 1, Math.ceil((mouse.y + RADIUS) / CELL_SIZE));
+
+        // mark all currently-in-range cells with a target based on distance
+        const seen = new Set();
+
+        if (mouse.x > -1000) {
+          for (let r = minRow; r <= maxRow; r++) {
+            for (let c = minCol; c <= maxCol; c++) {
+              const idx = r * cols + c;
+              const pos = cellIndexCache[idx];
+              if (!pos) continue;
+              const cx = pos.x + CELL_SIZE / 2;
+              const cy = pos.y + CELL_SIZE / 2;
+              const dx = cx - mouse.x;
+              const dy = cy - mouse.y;
+              const distSq = dx * dx + dy * dy;
+              if (distSq < RADIUS * RADIUS) {
+                const dist = Math.sqrt(distSq);
+                let t = 1 - dist / RADIUS;
+                t = t * t; // ease-out falloff
+
+                let cell = activeCells.get(idx);
+                if (!cell) {
+                  cell = { x: pos.x, y: pos.y, lift: 0, target: 0 };
+                  activeCells.set(idx, cell);
+                }
+                cell.target = t;
+                seen.add(idx);
+              }
+            }
+          }
+        }
+
+        // update all active cells (including ones fading out after leaving range)
+        for (const [idx, cell] of activeCells) {
+          if (!seen.has(idx)) cell.target = 0;
+          const ease = cell.target > cell.lift ? EASE_UP : EASE_DOWN;
+          cell.lift += (cell.target - cell.lift) * ease;
+
+          // remove once fully faded to avoid map growth
+          if (cell.target === 0 && cell.lift < 0.01) {
+            activeCells.delete(idx);
+          }
+        }
+      }
+
+      function draw() {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, width, height);
+
+        const size = CELL_SIZE - GAP;
+
+        for (const [, cell] of activeCells) {
+          const lift = cell.lift;  // 0..1
+          if (lift < 0.005) continue;
+
+          const liftPx = lift * MAX_LIFT;           // how many px the block has risen
+          const scale = 1 + lift * MAX_SCALE * 0.4;
+          const s = size * scale;               // current block face width
+          const thick = Math.max(2, s * 0.4);       // constant block thickness
+          const opacity = Math.min(1, lift * 2);
+
+          // Center X of this cell
+          const cx = cell.x + CELL_SIZE / 2;
+
+          // TOP FACE y-coordinate (rises upward = lower Y value)
+          const groundY = cell.y;                   // original y position on canvas
+          const floatY = groundY - liftPx;         // ← this is what makes it levitate
+
+          const blockX = cx - s / 2;
+
+          // ── SHADOW: stays on the ground, shrinks + fades as block rises ──
+          const shadowFade = 1 - lift * 0.75;
+          const shadowScale = 1 - lift * 0.45;
+          const shadowW = s * shadowScale;
+          const shadowH = Math.max(1, thick * 0.35 * shadowScale);
+          ctx.fillStyle = `rgba(0,0,0,${shadowFade * 0.55})`;
+          ctx.fillRect(cx - shadowW / 2, groundY + size * 0.6, shadowW, shadowH);
+
+          // ── FRONT FACE (lower band of the floating block) ──
+          const fg = Math.round(80 + lift * 80);
+          ctx.fillStyle = `rgba(${fg},${fg},${fg},${opacity})`;
+          ctx.fillRect(blockX, floatY, s, thick);
+
+          // ── RIGHT SIDE FACE (thin darker sliver for depth) ──
+          const sw = Math.max(1, s * 0.22);
+          const sg = Math.round(45 + lift * 55);
+          ctx.fillStyle = `rgba(${sg},${sg},${sg},${opacity})`;
+          ctx.fillRect(blockX + s - sw, floatY, sw, thick);
+
+          // ── TOP FACE (bright, simulates light hitting the top) ──
+          const topH = Math.max(2, s * 0.45);
+          ctx.fillStyle = `rgba(255,255,255,${opacity})`;
+          ctx.fillRect(blockX, floatY - topH, s, topH);
+        }
+      }
+
+      function loop() {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+      }
+
+      resize();
+      loop();
+    })();
+  </script>
+
+</body>
+
+</html>
