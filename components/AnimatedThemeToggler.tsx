@@ -4,15 +4,7 @@ import { useTheme } from '@/context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './AnimatedThemeToggler.module.css';
 
-// Augment TypeScript to accept startViewTransition
-declare global {
-  interface Document {
-    startViewTransition?: (cb: () => void | Promise<void>) => {
-      ready: Promise<void>;
-      finished: Promise<void>;
-    };
-  }
-}
+
 
 export default function AnimatedThemeToggler({ className }: { className?: string }) {
   const { theme, toggle } = useTheme();
