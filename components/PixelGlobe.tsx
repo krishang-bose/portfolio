@@ -96,7 +96,7 @@ export default function PixelGlobe({ size = 300 }: { size?: number }) {
       const dark = themeRef.current === 'dark';
 
       // Clear canvas each frame so old colours don't bleed through
-      ctx.clearRect(0, 0, S, S);
+      ctx!.clearRect(0, 0, S, S);
 
       for (let py = Math.floor(cy - R) - CELL; py <= cy + R; py += CELL) {
         for (let px = Math.floor(cx - R) - CELL; px <= cx + R; px += CELL) {
