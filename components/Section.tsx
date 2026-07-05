@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, ReactNode } from 'react';
-import styles from './Section.module.css';
 
 interface Props {
   id: string;
@@ -18,9 +17,7 @@ export default function Section({ id, number, title, children }: Props) {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add(styles.visible);
-        }
+        if (entry.isIntersecting) el.classList.add('section-visible');
       },
       { threshold: 0.05 }
     );
@@ -29,14 +26,31 @@ export default function Section({ id, number, title, children }: Props) {
   }, []);
 
   return (
-    <section id={id} ref={ref} className={styles.section}>
-      <div className={styles.inner}>
-        <div className={styles.heading}>
-          <span className={styles.number}>{number}</span>
-          <h2 className={styles.title}>{title}</h2>
-          <div className={styles.line} />
+    <section
+      id={id}
+      ref={ref}
+      className="py-[4.5rem] opacity-0 translate-y-8 transition-all duration-[0.65s] ease-out max-sm:py-14 section-anim"
+    >
+      <div className="max-w-[900px] mx-auto px-8 max-sm:px-5">
+        <div className="flex items-center gap-5 mb-9">
+          <span
+            className="font-mono text-[0.68rem] tracking-[0.14em] flex-shrink-0"
+            style={{ color: 'var(--neon-green)' }}
+          >
+            {number}
+          </span>
+          <h2
+            className="text-[clamp(1.4rem,3vw,1.75rem)] font-bold tracking-tight flex-shrink-0"
+            style={{ color: 'var(--clr-text)' }}
+          >
+            {title}
+          </h2>
+          <div
+            className="flex-1 h-px min-w-[40px]"
+            style={{ background: 'linear-gradient(to right, var(--accent-1), transparent)' }}
+          />
         </div>
-        <div className={styles.body}>{children}</div>
+        <div className="flex flex-col gap-4">{children}</div>
       </div>
     </section>
   );

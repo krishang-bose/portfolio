@@ -1,16 +1,11 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
-  motion,
-  AnimatePresence,
-} from 'framer-motion';
-import {
-  Home, GraduationCap, Cpu, Briefcase, Code2,
-  Trophy, FlaskConical, Users, Mail,
+  Home, Code2, FlaskConical, Briefcase, Cpu, Mail,
 } from 'lucide-react';
 import AnimatedThemeToggler from './AnimatedThemeToggler';
-import styles from './Dock.module.css';
 
 const NAV_ITEMS = [
   { href: '#hero', label: 'Home', Icon: Home },
@@ -21,24 +16,20 @@ const NAV_ITEMS = [
   { href: '#contact', label: 'Contact', Icon: Mail },
 ];
 
-/* Scale only the hovered item — neighbours are unaffected */
-function DockItem({
-  href,
-  label,
-  Icon,
-}: {
-  href: string;
-  label: string;
-  Icon: React.ComponentType<{ size: number }>;
-}) {
+function DockItem({ href, label, Icon }: { href: string; label: string; Icon: React.ComponentType<{ size: number }> }) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div className={styles.itemWrap}>
+    <div className="relative flex flex-col items-center">
       <AnimatePresence>
         {hovered && (
           <motion.span
-            className={styles.tooltip}
+            className="absolute bottom-[calc(100%+10px)] left-1/2 -translate-x-1/2 whitespace-nowrap text-[0.62rem] font-mono tracking-[0.06em] px-[0.55rem] py-[0.22rem] rounded-[7px] pointer-events-none z-10 shadow-md"
+            style={{
+              color: 'var(--clr-text)',
+              background: 'var(--clr-surface-2)',
+              border: '1px solid var(--clr-border-hi)',
+            }}
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
@@ -51,8 +42,13 @@ function DockItem({
 
       <motion.a
         href={href}
-        className={styles.item}
-        style={{ transformOrigin: 'bottom center' }}
+        className="flex items-center justify-center w-11 h-11 rounded-[12px] border no-underline cursor-none transition-colors duration-[0.18s] max-[640px]:w-[38px] max-[640px]:h-[38px] max-[400px]:w-8 max-[400px]:h-8"
+        style={{
+          background: 'var(--clr-surface-2)',
+          borderColor: 'var(--clr-border)',
+          color: 'var(--clr-secondary)',
+          transformOrigin: 'bottom center',
+        }}
         whileHover={{ scale: 1.75 }}
         transition={{ type: 'spring', mass: 0.1, stiffness: 220, damping: 14 }}
         onMouseEnter={() => setHovered(true)}
@@ -68,7 +64,12 @@ function DockItem({
 export default function Dock() {
   return (
     <motion.nav
-      className={styles.dock}
+      className="fixed bottom-6 left-1/2 z-[200] flex items-end gap-6 px-[0.8rem] py-[0.6rem] rounded-[22px] border backdrop-blur-[28px] max-[640px]:gap-2 max-[640px]:px-[0.65rem] max-[640px]:py-[0.45rem] max-[400px]:gap-[0.3rem]"
+      style={{
+        background: 'rgba(243,245,255,0.35)',
+        borderColor: 'var(--clr-border-hi)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.18), 0 0 0 1px var(--clr-border), 0 0 28px var(--glow-green)',
+      }}
       initial={{ y: 120, opacity: 0, x: '-50%' }}
       animate={{ y: 0, opacity: 1, x: '-50%' }}
       transition={{ type: 'spring', stiffness: 200, damping: 26, delay: 0.2 }}
@@ -78,11 +79,13 @@ export default function Dock() {
         <DockItem key={item.href} {...item} />
       ))}
 
-      <div className={styles.divider} />
+      <div
+        className="w-px h-7 self-center flex-shrink-0 mx-[0.15rem]"
+        style={{ background: 'var(--clr-border-hi)' }}
+      />
 
-      {/* Animated theme toggle */}
-      <div className={styles.itemWrap}>
-        <AnimatedThemeToggler className={styles.item} />
+      <div className="relative flex flex-col items-center">
+        <AnimatedThemeToggler />
       </div>
     </motion.nav>
   );

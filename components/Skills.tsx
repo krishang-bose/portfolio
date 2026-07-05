@@ -2,7 +2,6 @@
 
 import Section from './Section';
 import { resume } from '@/data/resume';
-import styles from './Skills.module.css';
 import { useTheme } from '@/context/ThemeContext';
 
 const DARK_COLORS: Record<string, { bg: string; border: string; text: string }> = {
@@ -23,19 +22,22 @@ export default function Skills() {
 
   return (
     <Section id="skills" number="02" title="Technical Skills">
-      <div className={styles.groups}>
+      <div className="flex flex-col gap-8">
         {resume.skills.map((group, i) => {
           const color = CATEGORY_COLORS[group.category] ?? CATEGORY_COLORS['Languages'];
           return (
-            <div key={i} className={styles.group}>
-              <span className={styles.category} style={{ color: color.text }}>
+            <div key={i} className="flex flex-col gap-[0.85rem]">
+              <span
+                className="font-mono text-[0.65rem] tracking-[0.16em] uppercase font-semibold"
+                style={{ color: color.text }}
+              >
                 {group.category}
               </span>
-              <div className={styles.tags}>
+              <div className="flex flex-wrap gap-2">
                 {group.items.map((item) => (
                   <span
                     key={item}
-                    className={styles.tag}
+                    className="inline-block font-mono text-[0.72rem] tracking-[0.04em] px-[0.85rem] py-[0.3rem] rounded-[4px] border cursor-default transition-all duration-[0.15s] ease-out hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(0,0,0,0.4)]"
                     style={{
                       background: color.bg,
                       borderColor: color.border,

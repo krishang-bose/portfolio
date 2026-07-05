@@ -4,6 +4,7 @@ export const resume = {
     email: "bosekrishang@gmail.com",
     github: { label: "github.com/krishang-bose", url: "https://github.com/krishang-bose" },
     linkedin: { label: "LinkedIn", url: "https://linkedin.com/in/krishang-bose-68b8a228b" },
+    leetcode: { label: "LeetCode", url: "https://leetcode.com/u/krishangbose123/" },
   },
 
   education: [
@@ -60,7 +61,7 @@ export const resume = {
       year: "2026",
       affiliation: "Bennett University",
       status: "Submitted for Publication",
-      link: { label: "Simulation Code", url: "#" },
+      link: { label: "Simulation Code", url: "https://github.com/krishang-bose/quantum-beamforming-star-ris" },
       bullets: [
         "Built a vehicular V2X simulation where a Base Station (4 Tx antennas, P_max = 5 W) beamforms through a STAR-RIS to simultaneously serve reflection-side and transmission-side cars moving at 5–30 m/s — modelling Rayleigh fading, per-slot Doppler phase rotation, and Jakes coherence decay (down to 0.21 at 30 m/s) at 5.9 GHz DSRC.",
         "Benchmarked three quantum-enhanced algorithms across 30 Monte Carlo trials per operating point: QAOA (4-qubit coarse search over 16 RIS-group configurations + L-BFGS-B warm-started from analytic gradients + classical gradient refinement), QDDPG (PQC actor with classical critic), and QPPO (3-layer PQC optimised for max-min fairness rather than sum-rate). Analytic Hamiltonian gradients verified against central-difference FD at < 1e-7 error before every run.",
@@ -93,6 +94,7 @@ export const resume = {
       year: "",
       detail: "Solved 1000+ algorithmic problems",
       venue: "Codeforces, LeetCode",
+      leetcodeUrl: "https://leetcode.com/u/krishangbose123/",
     },
   ],
 
@@ -101,7 +103,7 @@ export const resume = {
       name: "Hail – Startup Outreach Intelligence",
       tags: ["Full Stack", "AI"],
       year: "2026",
-      links: [{ label: "Hail", url: "#" }],
+      links: [{ label: "Hail", url: "https://hail-one.vercel.app/" }],
       bullets: [
         "Search any startup and instantly get an AI-generated company profile (mission, industry, tech stack, recent news), a D3.js dendrogram mapping founders → CTOs → engineers → recruiters, and personalized LinkedIn DM + email drafts tailored to the selected person — all in one flow.",
         "Engineered a 4-provider LLM fallback chain (Gemini → Groq → Cohere → Together AI) with automatic rate-limit switching, so new company lookups never block. Results are cached in Supabase PostgreSQL — the first search for any startup costs one AI call; every repeat search is instant and free for all users, with Firecrawl powering live web scraping for enrichment.",
@@ -112,7 +114,7 @@ export const resume = {
       name: "ChefMate – Smart Kitchen Assistant",
       tags: ["Hackathon Winner"],
       year: "2025",
-      links: [{ label: "GitHub", url: "#" }],
+      links: [{ label: "GitHub", url: "https://github.com/krishang-bose/ChefMate" }],
       bullets: [
         "Led a 4-member team to develop a comprehensive kitchen assistant using Node.js/Express, MongoDB, and React with Zustand.",
         "Integrated a nutrition API and designed a recommendation engine that matches inventory for enhanced user experience.",
@@ -124,8 +126,8 @@ export const resume = {
       tags: ["Frontend", "Backend"],
       year: "2024",
       links: [
-        { label: "ACM-BU Main Site", url: "#" },
-        { label: "Fish Hunt Game", url: "#" },
+        { label: "ACM-BU Main Site", url: "https://infuturum-acmbu.vercel.app/" },
+        { label: "Fish Hunt Game", url: "https://infuturum-acmbu.vercel.app/79035" },
       ],
       bullets: [
         "Created a tech fest website and an interactive logic-based treasure hunt game using Next.js and Tailwind CSS.",

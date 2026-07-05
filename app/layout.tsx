@@ -5,6 +5,10 @@ import Dock from '@/components/Dock';
 import SmoothCursor from '@/components/SmoothCursor';
 import ScrollProgress from '@/components/ScrollProgress';
 import StarField from '@/components/StarField';
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: 'Krishang Bose — CS Engineer & AI Builder',
@@ -16,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="light" suppressHydrationWarning>
+    <html lang="en" data-theme="light" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <body>
         <ThemeProvider>
           <SmoothCursor />
