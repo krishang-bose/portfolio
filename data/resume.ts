@@ -105,10 +105,10 @@ export const resume = {
       year: "2026",
       links: [{ label: "Hail", url: "https://hail-one.vercel.app/" }],
       bullets: [
-        "Search any startup and instantly get an AI-generated company profile (mission, industry, tech stack, recent news), a D3.js dendrogram mapping founders → CTOs → engineers → recruiters, and personalized LinkedIn DM + email drafts tailored to the selected person — all in one flow.",
-        "Engineered a 4-provider LLM fallback chain (Gemini → Groq → Cohere → Together AI) with automatic rate-limit switching, so new company lookups never block. Results are cached in Supabase PostgreSQL — the first search for any startup costs one AI call; every repeat search is instant and free for all users, with Firecrawl powering live web scraping for enrichment.",
+        "Built a startup intelligence platform in Next.js 14 + TypeScript where a single search delivers: an AI-synthesized company profile (mission, industry, tech stack, recent news scraped live via Firecrawl), a D3.js hierarchical dendrogram of the org chart segmented by role (founder → CTO → engineer → recruiter), and one-click generation of personalized LinkedIn DMs and cold emails tailored to the specific person selected — all in a single, cohesive flow.",
+        "Engineered the AI backbone as a 4-provider fallback chain (Gemini → Groq → Cohere → Together AI) in lib/openai.ts with automatic rate-limit detection and provider switching so zero requests are ever blocked; backed by a 3-table Supabase PostgreSQL schema (companies, people, messages) with UUID keys, cascading foreign keys, and Row-Level Security — first lookup costs one AI call, every repeat is instant. Per-user rate limiting (2 searches/day) enforced via NextAuth Google OAuth session IDs.",
       ],
-      stack: ["Next.js", "Gemini", "Groq", "Cohere", "Firecrawl", "Supabase", "D3.js"],
+      stack: ["Next.js", "TypeScript", "Gemini", "Groq", "Cohere", "Firecrawl", "Supabase", "D3.js"],
     },
     {
       name: "ChefMate – Smart Kitchen Assistant",
@@ -116,10 +116,10 @@ export const resume = {
       year: "2025",
       links: [{ label: "GitHub", url: "https://github.com/krishang-bose/ChefMate" }],
       bullets: [
-        "Led a 4-member team to develop a comprehensive kitchen assistant using Node.js/Express, MongoDB, and React with Zustand.",
-        "Integrated a nutrition API and designed a recommendation engine that matches inventory for enhanced user experience.",
+        "Led a 4-member team to build a full-featured culinary platform at a hackathon: a React 19 + Zustand SPA with 8 distinct pages — a personal Recipe Diary with full CRUD and Cloudinary image uploads, community Blog, Cooking Courses, CSV-powered Recipe Search, Leaflet.js interactive Map for local discovery, and a built-in Kitchen Timer — all behind a JWT-authenticated multi-page routing system.",
+        "Architected the Node.js/Express/MongoDB backend with an MVC structure across auth, recipe, and blog controllers: bcrypt password hashing (salt rounds 10), httpOnly cookie-based JWT sessions, and a Cloudinary media pipeline for profile and recipe images; the recipe search engine parses a structured CSV dataset in-memory for keyword-matched results without a dedicated DB query layer.",
       ],
-      stack: ["Node.js", "Express", "MongoDB", "React", "Zustand"],
+      stack: ["Node.js", "Express", "MongoDB", "React", "Zustand", "Cloudinary", "Leaflet.js"],
     },
     {
       name: "InFuturum Tech Fest & Fish Hunt Game",
