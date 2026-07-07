@@ -5,8 +5,6 @@ import { resume } from '@/data/resume';
 import { MapPin, Calendar } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { TimelineDot } from '@/components/ui/TimelineDot';
-
 
 export default function Education() {
   return (
@@ -16,7 +14,13 @@ export default function Education() {
           <div key={i} className="flex gap-6">
             {/* Rail */}
             <div className="flex flex-col items-center flex-shrink-0 pt-7 max-sm:hidden">
-              <TimelineDot variant="cyan" index={i} />
+              <div
+                className="w-[10px] h-[10px] rounded-full flex-shrink-0"
+                style={{
+                  background: 'var(--neon-cyan)',
+                  boxShadow: '0 0 8px var(--neon-cyan), 0 0 16px var(--glow-cyan)',
+                }}
+              />
               {i < resume.education.length - 1 && (
                 <div
                   className="w-px flex-1 min-h-8 mt-1"

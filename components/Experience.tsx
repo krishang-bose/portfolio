@@ -5,10 +5,10 @@ import { resume } from '@/data/resume';
 import { MapPin, Calendar } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { TimelineDot } from '@/components/ui/TimelineDot';
-
+import { useTheme } from '@/context/ThemeContext';
 
 export default function Experience() {
+  const { theme } = useTheme();
   return (
     <Section id="experience" number="03" title="Experience">
       <div className="flex flex-col">
@@ -16,7 +16,13 @@ export default function Experience() {
           <div key={i} className="flex gap-6">
             {/* Rail */}
             <div className="flex flex-col items-center flex-shrink-0 pt-7 max-sm:hidden">
-              <TimelineDot variant="green" index={i} />
+              <div
+                className="w-[10px] h-[10px] rounded-full flex-shrink-0"
+                style={{
+                  background: 'var(--neon-green)',
+                  boxShadow: '0 0 8px var(--neon-green), 0 0 16px var(--glow-green)',
+                }}
+              />
               {i < resume.experience.length - 1 && (
                 <div
                   className="w-px flex-1 min-h-8 mt-1"
