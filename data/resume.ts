@@ -122,7 +122,7 @@ export const resume = {
       stack: ["Node.js", "Express", "MongoDB", "React", "Zustand", "Cloudinary", "Leaflet.js"],
     },
     {
-      name: "InFuturum Tech Fest & Fish Hunt Game",
+      name: "InFuturum 3.0 – ACM Tech Fest Platform",
       tags: ["Frontend", "Backend"],
       year: "2024",
       links: [
@@ -130,10 +130,10 @@ export const resume = {
         { label: "Fish Hunt Game", url: "https://infuturum-acmbu.vercel.app/79035" },
       ],
       bullets: [
-        "Created a tech fest website and an interactive logic-based treasure hunt game using Next.js and Tailwind CSS.",
-        "Developed a custom backend with token-based progression, participant tracking, and Google Forms integration, supporting 3,000+ users during the event.",
+        "Built the official site for INFUTURUM 3.0 — ACM Bennett University's flagship 2-day tech fest — as a PWA in Next.js: features a retro arcade landing with a canvas-based animated starfield, CRT scanline overlay, and a live NASDAQ-style ticker (events styled as stocks: $FISHHUNT +8.7%, $DESIGNATHON +12.4%) alongside an Aceternity-style animated timeline of 8 events across 2 days (Resem, Capturathon, Hackauction, Designathon, Breakout Rooms, Mafia, Raw Reality), Google Analytics GA4, and Microsoft Forms registration — serving 3,000+ participants.",
+        "Engineered Fish Hunt, a multi-stage logic-based treasure hunt game with a token-gated progression system: each puzzle solution unlocks a unique access code for the next stage, backed by a server-side Node.js backend tracking per-participant state; scores surfaced in a real-time leaderboard embedded on the main arcade landing screen.",
       ],
-      stack: ["Next.js", "Tailwind CSS", "Node.js"],
+      stack: ["Next.js", "Tailwind CSS", "Node.js", "Canvas API", "GA4"],
     },
   ],
 
