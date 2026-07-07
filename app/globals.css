@@ -308,3 +308,84 @@ body > * { position: relative; z-index: 1; }
   75%  { background-position: 0% 100%; }
   100% { background-position: 0% 0%; }
 }
+
+/* ══════════════════════════════════════════════════════
+   Timeline Orb  (UIverse by andrew-manzyk, themed)
+   A 100px blob orb scaled down to 18px for the timeline rail.
+   ══════════════════════════════════════════════════════ */
+
+.tl-orb-wrapper {
+  width: 18px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.tl-orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Scale from 100px → 18px visual, centred in the 18px wrapper */
+  transform: translate(-50%, -50%) scale(0.18);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow:
+    0 0 25px 0 var(--tl-c3),
+    0 20px 50px 0 var(--tl-c3);
+  animation: tl-orb-colorize 6s ease-in-out infinite;
+}
+
+/* Glowing hemisphere rim */
+.tl-orb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border-top:    solid 1px var(--tl-c1);
+  border-bottom: solid 1px var(--tl-c2);
+  background: linear-gradient(180deg, var(--tl-c3), var(--tl-c2));
+  box-shadow:
+    inset 0  10px 10px 0 var(--tl-c3),
+    inset 0 -10px 10px 0 var(--tl-c3);
+}
+
+/* Gradient fill — masked to the morphing blob shape */
+.tl-orb-box {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(180deg, var(--tl-c1) 30%, var(--tl-c2) 70%);
+  position: relative;
+}
+
+/* Hidden SVG that owns the mask + filter defs */
+.tl-orb-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* ── Polygon animations (metaball blob rotation) ── */
+.tl-orb-p2 { transform-origin: 50px 50px; animation: tl-orb-rot 2s linear infinite reverse; }
+.tl-orb-p3 { transform-origin: 50px 60px; animation: tl-orb-rot 2s linear infinite;         animation-delay: calc(2s / -3); }
+.tl-orb-p4 { transform-origin: 40px 40px; animation: tl-orb-rot 2s linear infinite reverse; }
+.tl-orb-p5 { transform-origin: 40px 40px; animation: tl-orb-rot 2s linear infinite reverse; animation-delay: calc(2s / -2); }
+.tl-orb-p6 { transform-origin: 60px 40px; animation: tl-orb-rot 2s linear infinite; }
+.tl-orb-p7 { transform-origin: 60px 40px; animation: tl-orb-rot 2s linear infinite;         animation-delay: calc(2s / -1.5); }
+
+/* ── Keyframes ── */
+@keyframes tl-orb-rot {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes tl-orb-colorize {
+  0%   { filter: hue-rotate(0deg); }
+  20%  { filter: hue-rotate(-30deg); }
+  40%  { filter: hue-rotate(-60deg); }
+  60%  { filter: hue-rotate(-90deg); }
+  80%  { filter: hue-rotate(-45deg); }
+  100% { filter: hue-rotate(0deg); }
+}
