@@ -31,7 +31,7 @@ export default function Education() {
 
             {/* Card */}
             <Card
-              className="flex-1 mb-5 p-6 flex flex-col gap-4 transition-all duration-[0.25s] ease-out transform-gpu cursor-default rounded-[10px] ring-0 max-sm:mb-3"
+              className="flex-1 mb-5 p-6 flex flex-col gap-4 relative transition-all duration-[0.25s] ease-out transform-gpu cursor-default rounded-[10px] ring-0 max-sm:mb-3"
               style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)' }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLElement;

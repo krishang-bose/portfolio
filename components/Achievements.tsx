@@ -17,7 +17,7 @@ export default function Achievements() {
           return (
             <Card
               key={i}
-              className="flex items-start gap-4 px-[1.4rem] py-[1.15rem] rounded-[8px] ring-0 transition-all duration-[0.25s] cursor-default max-sm:px-4 max-sm:py-[0.9rem]"
+              className="flex items-start gap-4 px-[1.4rem] py-[1.15rem] rounded-[8px] ring-0 relative transition-all duration-[0.25s] cursor-default max-sm:px-4 max-sm:py-[0.9rem]"
               style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)' }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLElement;

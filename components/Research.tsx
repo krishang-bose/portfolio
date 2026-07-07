@@ -5,8 +5,10 @@ import { resume } from '@/data/resume';
 import { FlaskConical, ExternalLink, BookOpen } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function Research() {
+  const { theme } = useTheme();
   return (
     <Section id="research" number="04" title="Research">
       {resume.research.map((r, i) => (

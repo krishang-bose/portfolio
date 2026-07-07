@@ -37,7 +37,7 @@ export default function Skills() {
                 {group.items.map((item) => (
                   <span
                     key={item}
-                    className="inline-block font-mono text-[0.72rem] tracking-[0.04em] px-[0.85rem] py-[0.3rem] rounded-[4px] border cursor-default transition-all duration-[0.15s] ease-out hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(0,0,0,0.4)]"
+                    className="inline-block font-mono text-[0.82rem] tracking-[0.04em] px-[1rem] py-[0.45rem] rounded-[5px] border cursor-default transition-all duration-[0.15s] ease-out hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(0,0,0,0.4)]"
                     style={{
                       background: color.bg,
                       borderColor: color.border,

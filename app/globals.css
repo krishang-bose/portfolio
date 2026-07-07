@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -217,6 +215,7 @@ body > * { position: relative; z-index: 1; }
     --font-sans: var(--font-sans);
     --animate-blink-cursor: blink-cursor 1.2s step-end infinite;
     --animate-gradient: gradient 8s linear infinite;
+    --animate-shine: shine var(--duration) infinite linear;
   }
   :root {
     --background: oklch(1 0 0);
@@ -300,4 +299,12 @@ body > * { position: relative; z-index: 1; }
 }
 @keyframes gradient {
   to { background-position: var(--bg-size, 300%) 0; }
+}
+
+@keyframes shine {
+  0%   { background-position: 0% 0%; }
+  25%  { background-position: 100% 0%; }
+  50%  { background-position: 100% 100%; }
+  75%  { background-position: 0% 100%; }
+  100% { background-position: 0% 0%; }
 }

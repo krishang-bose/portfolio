@@ -41,7 +41,7 @@ export default function Contact() {
         ].map(({ href, icon, label, value }) => (
           <Card
             key={label}
-            className="group flex items-center gap-4 px-[1.4rem] py-[1.2rem] rounded-[8px] ring-0 transition-all duration-[0.25s] cursor-pointer"
+            className="group flex items-center gap-4 px-[1.4rem] py-[1.2rem] rounded-[8px] ring-0 relative transition-all duration-[0.25s] cursor-pointer"
             style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', color: 'var(--clr-text)' }}
             onMouseEnter={(e) => {
               const el = e.currentTarget as HTMLElement;
