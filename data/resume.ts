@@ -94,7 +94,7 @@ export const resume = {
       year: "",
       detail: "Solved 1000+ algorithmic problems",
       venue: "Codeforces, LeetCode",
-      leetcodeUrl: "https://leetcode.com/u/krishangbose123/",
+      leetcodeUrl: "https://codolio.com/profile/krishang6969",
     },
   ],
 

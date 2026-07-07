@@ -20,7 +20,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="light" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
+    <html lang="en" data-theme="dark" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
+      <head>
+        {/* Blocking script — runs before first paint, prevents white flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.setAttribute('data-theme','dark');`,
+          }}
+        />
+      </head>
       <body>
         <ThemeProvider>
           <SmoothCursor />
